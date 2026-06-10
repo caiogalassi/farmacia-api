@@ -201,7 +201,7 @@ farmacia-api/
 
 ---
 
-## Proximos passos sugeridos
+## Proximos passos
 
 - Autenticacao com Spring Security + JWT
 - Relatorios em PDF (iText/JasperReports)
