@@ -3,6 +3,7 @@ package com.farmacia.service;
 import com.farmacia.exception.ResourceNotFoundException;
 import com.farmacia.model.Medicamento;
 import com.farmacia.repository.MedicamentoRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,7 +17,7 @@ public class MedicamentoService {
     private final MedicamentoRepository repository;
 
     public List<Medicamento> listarTodos() {
-        return repository.findAll();
+        return repository.findByAtivoTrue();
     }
 
     public Medicamento buscarPorId(Long id) {
@@ -81,9 +82,17 @@ public class MedicamentoService {
         repository.save(m);
     }
 
-    @Transactional
+//    @Transactional
+//    public void excluir(Long id) {
+//        buscarPorId(id);
+//        repository.deleteById(id);
+//    }
+
     public void excluir(Long id) {
-        buscarPorId(id);
-        repository.deleteById(id);
+        Medicamento medicamento = repository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Medicamento não encontrado"));
+
+        medicamento.setAtivo(false);
+        repository.save(medicamento);
     }
 }

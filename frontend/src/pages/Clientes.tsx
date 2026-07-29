@@ -3,6 +3,7 @@ import { Plus, Search, Pencil, Trash2, Mail, Phone, MapPin, FileWarning } from '
 import { PageHeader } from '@/components/PageHeader'
 import { Card } from '@/components/ui/Card'
 import { Button } from '@/components/ui/Button'
+import { Badge } from '@/components/ui/Badge'
 import { Input } from '@/components/ui/Field'
 import { Modal } from '@/components/ui/Modal'
 import { LoadingBlock, ErrorBlock, EmptyState } from '@/components/ui/States'
@@ -109,6 +110,7 @@ export function Clientes() {
                   <th className="px-5 py-3 font-medium">CPF</th>
                   <th className="px-5 py-3 font-medium">Contato</th>
                   <th className="px-5 py-3 font-medium">Nascimento</th>
+                  <th className="px-5 py-3 font-medium">Status</th>
                   <th className="px-5 py-3 text-right font-medium">Ações</th>
                 </tr>
               </thead>
@@ -141,6 +143,11 @@ export function Clientes() {
                     </td>
                     <td className="px-5 py-3 text-slate-600">
                       {formatDate(c.dataNascimento)}
+                    </td>
+                    <td className="px-5 py-3">
+                      <Badge tone={c.ativo === false ? 'red' : 'green'}>
+                        {c.ativo === false ? 'Inativo' : 'Ativo'}
+                      </Badge>
                     </td>
                     <td className="px-5 py-3">
                       <div className="flex items-center justify-end gap-1">

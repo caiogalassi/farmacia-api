@@ -1,5 +1,6 @@
 package com.farmacia.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
@@ -41,6 +42,7 @@ public class Cliente {
     @OneToMany(mappedBy = "cliente", fetch = FetchType.LAZY)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
+    @JsonIgnore
     private List<Venda> vendas;
 
     @Column(name = "criado_em", updatable = false)
@@ -48,6 +50,17 @@ public class Cliente {
 
     @Column(name = "atualizado_em")
     private LocalDateTime atualizadoEm;
+
+    @Column(name = "ativo", nullable = false)
+    private Boolean ativo = true;
+
+    public Boolean getAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(Boolean ativo) {
+        this.ativo = ativo;
+    }
 
     @PrePersist
     protected void onCreate() {

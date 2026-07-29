@@ -62,6 +62,9 @@ public class Medicamento {
     @Column(name = "atualizado_em")
     private LocalDateTime atualizadoEm;
 
+    @Column(name = "ativo", nullable = false)
+    private Boolean ativo = true;
+
     @PrePersist
     protected void onCreate() {
         criadoEm = LocalDateTime.now();
@@ -83,5 +86,13 @@ public class Medicamento {
 
     public boolean isVencendoEmBreve() {
         return dataValidade != null && dataValidade.isBefore(LocalDate.now().plusDays(30));
+    }
+
+    public Boolean getAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(Boolean ativo) {
+        this.ativo = ativo;
     }
 }

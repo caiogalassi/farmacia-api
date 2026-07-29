@@ -40,6 +40,7 @@ export interface Cliente {
   dataNascimento?: string | null
   criadoEm?: string
   atualizadoEm?: string
+  ativo?: boolean
 }
 
 export type ClienteInput = {

@@ -3,6 +3,7 @@ package com.farmacia.service;
 import com.farmacia.exception.ResourceNotFoundException;
 import com.farmacia.model.Cliente;
 import com.farmacia.repository.ClienteRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -51,9 +52,17 @@ public class ClienteService {
         return repository.save(existente);
     }
 
-    @Transactional
+//    @Transactional
+//    public void excluir(Long id) {
+//        buscarPorId(id);
+//        repository.deleteById(id);
+//    }
+
     public void excluir(Long id) {
-        buscarPorId(id);
-        repository.deleteById(id);
+        Cliente cliente = repository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado"));
+
+        cliente.setAtivo(false);
+        repository.save(cliente);
     }
 }

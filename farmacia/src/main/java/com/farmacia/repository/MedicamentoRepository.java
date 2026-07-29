@@ -17,6 +17,8 @@ public interface MedicamentoRepository extends JpaRepository<Medicamento, Long> 
 
     List<Medicamento> findByCategoria(String categoria);
 
+    List<Medicamento> findByAtivoTrue();
+
     @Query("SELECT m FROM Medicamento m WHERE m.quantidade <= m.quantidadeMinima")
     List<Medicamento> findEstoqueBaixo();
 
